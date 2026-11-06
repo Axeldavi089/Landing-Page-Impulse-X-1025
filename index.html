@@ -56,6 +56,8 @@ input,select,textarea{background:#000;color:var(--txt);border:1px solid #3a3a3e;
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 .empty{color:var(--plata);text-align:center;padding:18px}
 footer{text-align:center;color:#777;font-size:.8rem;padding:24px}
+#musica{position:fixed;right:16px;bottom:16px;z-index:20;background:rgba(10,10,25,.75);color:#7df9ff;border:1px solid rgba(0,229,255,.6);border-radius:999px;padding:10px 16px;font-weight:600;letter-spacing:1px;box-shadow:0 0 16px rgba(0,229,255,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#ytp{position:fixed;width:2px;height:2px;left:-10px;bottom:0;opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -168,6 +170,26 @@ $("#file").onchange=async e=>{
 };
 
 load().then(()=>{render();tick();setInterval(tick,1000)});
+</script>
+<button id="musica" type="button">🔊 Música</button>
+<div id="ytp"></div>
+<script>
+let yt,ytListo=false,sonando=false;
+const mb=document.getElementById("musica");
+const tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";document.head.appendChild(tag);
+window.onYouTubeIframeAPIReady=()=>{
+  yt=new YT.Player("ytp",{height:"2",width:"2",videoId:"hKRUPYrAQoE",playerVars:{playsinline:1,controls:0,rel:0},
+    events:{
+      onReady:()=>{ytListo=true;yt.setVolume(40)},
+      onStateChange:e=>{if(e.data===YT.PlayerState.ENDED)yt.playVideo()},
+      onError:()=>{sonando=false;mb.textContent="⚠️ No disponible"}
+    }});
+};
+mb.addEventListener("click",()=>{
+  if(!ytListo){mb.textContent="Cargando...";return}
+  if(sonando){yt.pauseVideo();sonando=false;mb.textContent="🔊 Música"}
+  else{yt.playVideo();sonando=true;mb.textContent="🔇 Pausar"}
+});
 </script>
 </body>
 </html>
