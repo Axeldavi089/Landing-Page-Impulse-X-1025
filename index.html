@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impulse-X · Reto F1025</title>
+<link rel="icon" href="logo.png">
+<style>
+:root{--rojo:#E91D0A;--prof:#BE0302;--negro:#000;--plata:#B6B6B6;--bg:#0b0b0c;--card:#151517;--txt:#f2f2f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+header{background:linear-gradient(100deg,#000 60%,var(--prof) 85%,var(--rojo));padding:16px 20px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--rojo)}
+header img{width:64px;height:64px;border-radius:50%}
+header h1{margin:0;font-size:1.5rem;font-style:italic;letter-spacing:.5px}
+header h1 span{color:var(--rojo)}
+header small{display:block;color:var(--plata);letter-spacing:3px;font-size:.7rem;text-transform:uppercase}
+main{max-width:860px;margin:0 auto;padding:20px}
+h2{border-left:5px solid var(--rojo);padding-left:12px;font-size:1.4rem;margin:8px 0 16px}
+.count{background:var(--card);border:1px solid #2a2a2d;border-radius:16px;padding:22px;text-align:center;margin-bottom:24px}
+.count p{margin:0 0 10px;color:var(--plata)}
+.clock{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.clock div{background:#000;border:1px solid var(--rojo);border-radius:12px;min-width:76px;padding:10px 6px}
+.clock b{display:block;font-size:2rem;color:var(--rojo);font-variant-numeric:tabular-nums}
+.clock span{font-size:.7rem;color:var(--plata);text-transform:uppercase;letter-spacing:2px}
+.card{background:var(--card);border:1px solid #2a2a2d;border-left:4px solid var(--rojo);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card.ok{border-left-color:#2ecc71}.card.fail{border-left-color:var(--plata)}
+.card h3{margin:0 0 4px;font-size:1.05rem}
+.meta{color:var(--plata);font-size:.9rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tags span{background:#000;border:1px solid #333;border-radius:8px;padding:3px 9px;font-size:.85rem}
+button,.btn{background:var(--rojo);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer;font-size:.9rem}
+button.sec{background:#26262a}
+button:hover{filter:brightness(1.15)}
+details{background:var(--card);border:1px solid #2a2a2d;border-radius:12px;padding:12px 16px;margin:16px 0}
+summary{cursor:pointer;font-weight:600;color:var(--rojo)}
+form{display:grid;gap:10px;margin-top:12px}
+label{display:grid;gap:4px;font-size:.85rem;color:var(--plata)}
+input,select,textarea{background:#000;color:var(--txt);border:1px solid #3a3a3e;border-radius:8px;padding:9px;font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.empty{color:var(--plata);text-align:center;padding:18px}
+footer{text-align:center;color:#777;font-size:.8rem;padding:24px}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="Logo Impulse-X">
+  <div><h1>Impulse<span>-X</span></h1><small>Equipo de coheteria · Reto F1025</small></div>
+</header>
+<main>
+  <div class="count" id="count"></div>
+
+  <h2>Lanzamientos por venir</h2>
+  <div id="proximos"></div>
+
+  <details id="nuevo">
+    <summary>+ Agregar lanzamiento</summary>
+    <form id="fNuevo">
+      <div class="row">
+        <label>Fecha y hora<input type="datetime-local" name="fecha" required></label>
+        <label>Lugar<input name="lugar" placeholder="Ej. Culiacán, campo de pruebas" required></label>
+      </div>
+      <label>Notas<textarea name="notas" rows="2" placeholder="Ojiva 26 g, paracaídas hexagonal..."></textarea></label>
+      <button>Guardar lanzamiento</button>
+    </form>
+  </details>
+
+  <details id="reg">
+    <summary>Registrar resultado</summary>
+    <form id="fRes">
+      <label>Lanzamiento<select name="id" id="selId" required></select></label>
+      <div class="row">
+        <label>Altura alcanzada (m)<input type="number" step="any" min="0" name="altura" required></label>
+        <label>Tiempo de vuelo (s)<input type="number" step="any" min="0" name="vuelo" required></label>
+      </div>
+      <div class="row">
+        <label>Descenso con paracaídas (s)<input type="number" step="any" min="0" name="descenso" required></label>
+        <label>Resultado<select name="exito"><option value="1">Éxito</option><option value="0">Falla</option></select></label>
+      </div>
+      <label>Enlace a foto o video (opcional)<input type="url" name="media" placeholder="https://..."></label>
+      <button>Guardar resultado</button>
+    </form>
+  </details>
+
+  <h2>Resultados registrados</h2>
+  <div id="hechos"></div>
+
+  <div class="tools">
+    <button class="sec" id="exp">Descargar data.json</button>
+    <button class="sec" id="imp">Importar data.json</button>
+    <input type="file" id="file" accept=".json" hidden>
+  </div>
+  <p class="meta">Los cambios se guardan en este navegador. Para que todos los vean, descarga <code>data.json</code> y súbelo al repositorio.</p>
+</main>
+<footer>Impulse-X · Reto F1025</footer>
+
+<script>
+const KEY="impulsex_f1025";
+let L=[];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=f=>new Date(f).toLocaleString("es-MX",{dateStyle:"full",timeStyle:"short"});
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}}
+async function load(){
+  try{const s=localStorage.getItem(KEY);if(s){L=JSON.parse(s);return}}catch(e){}
+  try{const r=await fetch("data.json",{cache:"no-store"});if(r.ok)L=await r.json()}catch(e){}
+}
+
+function render(){
+  const p=L.filter(x=>x.estado!=="hecho").sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+  const h=L.filter(x=>x.estado==="hecho").sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  $("#proximos").innerHTML=p.length?p.map(x=>`<div class="card"><h3>${esc(x.lugar)}</h3><div class="meta">${esc(fmt(x.fecha))}</div>${x.notas?`<div class="meta">${esc(x.notas)}</div>`:""}<div class="tags"><button class="sec" data-del="${esc(x.id)}">Eliminar</button></div></div>`).join(""):'<div class="empty">Aún no hay lanzamientos programados.</div>';
+  $("#hechos").innerHTML=h.length?h.map(x=>{const r=x.resultado||{};return `<div class="card ${r.exito?"ok":"fail"}"><h3>${r.exito?"✅ Éxito":"⚠️ Falla"} · ${esc(x.lugar)}</h3><div class="meta">${esc(fmt(x.fecha))}</div><div class="tags"><span>Altura: ${esc(r.altura)} m</span><span>Vuelo: ${esc(r.vuelo)} s</span><span>Descenso: ${esc(r.descenso)} s</span></div>${/^https?:\/\//.test(r.media||"")?`<p><a style="color:var(--rojo)" href="${esc(r.media)}" target="_blank" rel="noopener">Ver foto/video</a></p>`:""}</div>`}).join(""):'<div class="empty">Todavía no hay resultados.</div>';
+  $("#selId").innerHTML=p.map(x=>`<option value="${esc(x.id)}">${esc(x.lugar)} · ${esc(fmt(x.fecha))}</option>`).join("")||'<option value="">Sin lanzamientos pendientes</option>';
+}
+
+function tick(){
+  const n=L.filter(x=>x.estado!=="hecho"&&new Date(x.fecha)>new Date()).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))[0];
+  const c=$("#count");
+  if(!n){c.innerHTML="<p>Próximo lanzamiento</p><b style='font-size:1.3rem'>Por anunciar 🚀</b>";return}
+  let d=Math.max(0,new Date(n.fecha)-new Date())/1000;
+  const v=[["Días",86400],["Horas",3600],["Min",60],["Seg",1]].map(([t,s])=>{const q=Math.floor(d/s);d-=q*s;return `<div><b>${String(q).padStart(2,"0")}</b><span>${t}</span></div>`}).join("");
+  c.innerHTML=`<p>Cuenta regresiva · ${esc(n.lugar)}</p><div class="clock">${v}</div>`;
+}
+
+$("#fNuevo").addEventListener("submit",e=>{
+  e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
+  L.push({id:Date.now().toString(36),fecha:f.fecha,lugar:f.lugar,notas:f.notas,estado:"pendiente"});
+  save();e.target.reset();render();tick();
+});
+$("#fRes").addEventListener("submit",e=>{
+  e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
+  const x=L.find(i=>i.id===f.id);if(!x)return;
+  x.estado="hecho";x.resultado={altura:f.altura,vuelo:f.vuelo,descenso:f.descenso,exito:f.exito==="1",media:f.media};
+  save();e.target.reset();render();tick();
+});
+$("#proximos").addEventListener("click",e=>{
+  const id=e.target.dataset.del;if(id&&confirm("¿Eliminar este lanzamiento?")){L=L.filter(x=>x.id!==id);save();render();tick()}
+});
+$("#exp").onclick=()=>{
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(L,null,2)],{type:"application/json"}));a.download="data.json";a.click();
+};
+$("#imp").onclick=()=>$("#file").click();
+$("#file").onchange=async e=>{
+  try{L=JSON.parse(await e.target.files[0].text());save();render();tick()}catch(err){alert("Archivo no válido")}
+};
+
+load().then(()=>{render();tick();setInterval(tick,1000)});
+</script>
+</body>
+</html>
