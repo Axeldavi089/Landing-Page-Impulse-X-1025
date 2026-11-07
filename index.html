@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#07070d">
 <title>Impulse-X · Reto F1025</title>
 <link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--rojo:#E91D0A;--prof:#BE0302;--negro:#000;--plata:#B6B6B6;--bg:#0b0b0c;--card:#151517;--txt:#f2f2f2}
 *{box-sizing:border-box}
@@ -24,8 +26,8 @@ h2{border-left:5px solid var(--rojo);padding-left:12px;font-size:1.4rem;margin:8
 .count .eyebrow{color:#d6d6d6;letter-spacing:8px;text-transform:uppercase;font-size:clamp(.8rem,2.5vw,1.1rem);margin:0 0 2px;text-shadow:0 0 14px rgba(233,29,10,.9)}
 .count .lugar{font-size:clamp(1.2rem,4vw,2rem);font-weight:700;margin:0;background:linear-gradient(90deg,#B6B6B6,#fff,#E91D0A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .count .cuando{color:#B6B6B6;margin:2px 0 6px}
-.stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;width:min(94vw,70vh,800px);aspect-ratio:1;container-type:inline-size}
-.glow{position:absolute;inset:0;margin:auto;width:125%;height:46%;border-radius:50%;pointer-events:none;-webkit-mask:repeating-linear-gradient(0deg,#000 0 5px,transparent 5px 8px);mask:repeating-linear-gradient(0deg,#000 0 5px,transparent 5px 8px)}
+.stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;width:min(94vw,64vh,760px);aspect-ratio:1;container-type:inline-size}
+.glow{position:absolute;left:-12.5%;top:27%;width:125%;height:46%;border-radius:50%;pointer-events:none;-webkit-mask:repeating-linear-gradient(0deg,#000 0 5px,transparent 5px 8px);mask:repeating-linear-gradient(0deg,#000 0 5px,transparent 5px 8px)}
 .g1{background:radial-gradient(ellipse at center,rgba(233,29,10,.95) 0%,rgba(233,29,10,.5) 40%,transparent 70%);animation:altA 8s ease-in-out infinite}
 .g2{opacity:0;background:radial-gradient(ellipse at center,rgba(225,225,225,.85) 0%,rgba(182,182,182,.4) 40%,transparent 70%);animation:altB 8s ease-in-out infinite}
 .orbit{position:absolute;border-radius:50%;pointer-events:none;animation:spin 9s linear infinite}
@@ -44,18 +46,27 @@ h2{border-left:5px solid var(--rojo);padding-left:12px;font-size:1.4rem;margin:8
 .pn.w{background:radial-gradient(circle at 32% 30%,#fff,#e6e6e6 40%,#8a8a8a);box-shadow:0 0 14px rgba(255,255,255,.7)}
 .pn.d{background:radial-gradient(circle at 32% 30%,#ff6a57,#BE0302 50%,#2a0000);box-shadow:0 0 12px rgba(190,3,2,.8)}
 .sat::after{content:"";position:absolute;left:-65%;right:-65%;top:32%;bottom:32%;border:2px solid rgba(255,255,255,.75);border-radius:50%;transform:rotate(-20deg)}
-.count #editHero{margin-top:8px}
+.prog{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:10px}
+.prog-t{margin:0;color:#d6d6d6;letter-spacing:3px;font-size:clamp(.75rem,2.4vw,1rem);font-family:Rajdhani,system-ui,sans-serif;font-weight:700;text-transform:uppercase}
+.count #editHero{background:transparent;border:1px solid #E91D0A;color:#fff;letter-spacing:3px;border-radius:999px;padding:8px 18px;font-size:.8rem}
+.panel{display:grid;gap:8px;text-align:left;background:rgba(10,8,8,.85);border:1px solid rgba(233,29,10,.5);border-radius:14px;padding:14px;width:min(92vw,420px)}
+.panel[hidden]{display:none}
+.panel label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns button{flex:1;border-radius:999px;letter-spacing:1px;font-size:.75rem;padding:9px 10px}
+input{color-scheme:dark}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes altA{0%,35%{opacity:1}50%,85%{opacity:.25}100%{opacity:1}}
 @keyframes altB{0%,35%{opacity:.25}50%,85%{opacity:1}100%{opacity:.25}}
 @keyframes altTxt{0%,35%{color:#f4f4f4}50%,85%{color:#E91D0A}100%{color:#f4f4f4}}
-.clock{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:center;gap:clamp(2px,1vw,14px);gap:1.2cqw;font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif}
+.clock{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:center;gap:clamp(2px,1vw,14px);gap:1.2cqw;font-family:Orbitron,"Arial Black",system-ui,sans-serif}
 .u{display:flex;flex-direction:column;align-items:center;animation:sube 1s cubic-bezier(.16,1,.3,1) both}
 .clock>:nth-child(3){animation-delay:.12s}.clock>:nth-child(5){animation-delay:.24s}.clock>:nth-child(7){animation-delay:.36s}
-.u b,.sep{font-size:clamp(1.2rem,4.8vw,3.2rem);font-size:10.6cqw;line-height:1;font-weight:900;font-style:normal;-webkit-text-stroke:3px #000;-webkit-text-stroke:clamp(2px,.45cqw,4px) #000;paint-order:stroke fill}
+.u b,.sep{font-size:clamp(1.2rem,4.8vw,3.2rem);font-size:8.2cqw;line-height:1;font-weight:900;font-style:normal;-webkit-text-stroke:3px #000;-webkit-text-stroke:clamp(1.5px,.3cqw,3px) #000;paint-order:stroke fill}
 .u b{display:block;font-variant-numeric:tabular-nums;color:#f4f4f4;animation:altTxt 8s ease-in-out infinite;transition:transform .25s cubic-bezier(.23,1,.32,1),filter .25s}
 .sep{color:#fff;animation:sube 1s cubic-bezier(.16,1,.3,1) .3s both,blink 1s steps(1) infinite}
-.u span{margin-top:.3rem;font-size:clamp(.65rem,2vw,1.1rem);font-size:clamp(.55rem,2.6cqw,1.2rem);font-weight:800;color:#fff;letter-spacing:2px;text-transform:uppercase;text-shadow:0 2px 0 #000;transition:color .2s ease-out}
+.u span{font-family:Rajdhani,system-ui,sans-serif;margin-top:.3rem;font-size:clamp(.65rem,2vw,1.1rem);font-size:clamp(.65rem,3.2cqw,1.4rem);font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;text-shadow:0 2px 0 #000;transition:color .2s ease-out}
 @keyframes blink{50%{opacity:.25}}
 @keyframes sube{from{opacity:0;transform:translateY(70px);clip-path:inset(100% -60% -60% -60%)}to{opacity:1;transform:none;clip-path:inset(-60% -60% -60% -60%)}}
 @media (hover:hover) and (pointer:fine){
@@ -104,7 +115,7 @@ footer{text-align:center;color:#777;font-size:.8rem;padding:24px}
   <div id="proximos"></div>
 
   <details id="nuevo">
-    <summary>+ Agregar o editar lanzamiento</summary>
+    <summary>+ Agregar otro lanzamiento</summary>
     <form id="fNuevo">
       <label>Lugar<input name="lugar" placeholder="Ej. Culiacán, campo de pruebas" required></label>
       <label>Fecha y hora del despegue<input type="datetime-local" step="1" name="fecha"></label>
@@ -172,21 +183,64 @@ function render(){
 
 let built=false;
 function tick(){
-  const n=L.filter(x=>x.estado!=="hecho"&&new Date(x.fecha)>new Date()).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))[0];
+  const t=proximo(),n=t&&new Date(t.fecha)>new Date()?t:null;
   const c=$("#count");
   if(!built){
     built=true;
-    c.innerHTML='<p class="eyebrow">T – menos para el despegue</p><p class="lugar" id="cLugar"></p><p class="cuando" id="cCuando"></p><div class="stage"><div class="glow g1"></div><div class="glow g2"></div><div class="orbit o1"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:110deg;--s:20px"><i class="pn r"></i></div><div class="pl" style="--a:235deg;--s:11px"><i class="pn s"></i></div></div><div class="orbit o2"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:70deg;--s:16px"><i class="pn w sat"></i></div><div class="pl" style="--a:200deg;--s:12px"><i class="pn d"></i></div><div class="pl" style="--a:300deg;--s:8px"><i class="pn s"></i></div></div><div class="clock">'+["DÍAS","HRS","MIN","SEG"].map((t,i)=>'<div class="u"><b id="cd'+i+'">00</b><span>'+t+'</span></div>').join('<i class="sep">:</i>')+'</div></div><button class="sec" id="editHero" type="button"></button>';
-    $("#editHero").addEventListener("click",()=>{if(heroId)startEdit(heroId);else{resetForm();const dt=$("#nuevo");dt.open=true;dt.scrollIntoView({behavior:"smooth",block:"center"})}});
+    c.innerHTML='<p class="eyebrow">T – menos para el despegue</p><p class="lugar" id="cLugar"></p><div class="stage"><div class="glow g1"></div><div class="glow g2"></div><div class="orbit o1"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:110deg;--s:20px"><i class="pn r"></i></div><div class="pl" style="--a:235deg;--s:11px"><i class="pn s"></i></div></div><div class="orbit o2"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:70deg;--s:16px"><i class="pn w sat"></i></div><div class="pl" style="--a:200deg;--s:12px"><i class="pn d"></i></div><div class="pl" style="--a:300deg;--s:8px"><i class="pn s"></i></div></div><div class="clock">'+["DÍAS","HRS","MIN","SEG"].map((t,i)=>'<div class="u"><b id="cd'+i+'">00</b><span>'+t+'</span></div>').join('<i class="sep">:</i>')+'</div></div><div class="prog"><p class="prog-t" id="cProg"></p><button class="sec" id="editHero" type="button"></button><div class="panel" id="hPanel" hidden><label>Lugar<input id="hLugar" placeholder="Ej. Culiacán"></label><label>Fecha y hora de despegue<input type="datetime-local" id="hFecha"></label><label>O escribe cuánto falta</label><div class="row3"><input id="hd" type="number" min="0" placeholder="días"><input id="hh" type="number" min="0" placeholder="horas"><input id="hm" type="number" min="0" placeholder="min"></div><div class="btns"><button id="hGuardar" type="button">GUARDAR</button><button class="sec" id="hCopiar" type="button">COPIAR ENLACE</button><button class="sec" id="hBorrar" type="button">BORRAR</button></div></div></div>';
+    $("#editHero").addEventListener("click",togglePanel);
+    $("#hGuardar").addEventListener("click",guardarHero);
+    $("#hCopiar").addEventListener("click",copiarEnlace);
+    $("#hBorrar").addEventListener("click",borrarHero);
   }
-  $("#cLugar").textContent=n?n.lugar:"Próximo lanzamiento por anunciar 🚀";
-  $("#cCuando").textContent=n?fmt(n.fecha):"Muy pronto daremos la fecha";
-  heroId=n?n.id:null;$("#editHero").textContent=n?"✎ Editar tiempo":"＋ Programar lanzamiento";
+  $("#cLugar").textContent=n?n.lugar:(t?"¡Es la hora del despegue! 🚀":"Próximo lanzamiento por anunciar 🚀");
+  $("#cProg").textContent=t?"DESPEGUE PROGRAMADO · "+fmt(t.fecha):"AÚN SIN FECHA PROGRAMADA";
+  $("#editHero").textContent=t?"CAMBIAR FECHA":"PROGRAMAR DESPEGUE";
   document.querySelectorAll("[data-t]").forEach(el=>{const r=Math.floor((new Date(el.dataset.t)-Date.now())/1000);el.textContent=r>0?"Faltan "+Math.floor(r/86400)+" d "+pad(Math.floor(r%86400/3600))+":"+pad(Math.floor(r%3600/60))+":"+pad(r%60):"Ya es la hora: registra el resultado"});
   let d=n?Math.max(0,Math.floor((new Date(n.fecha)-new Date())/1000)):0;
   [86400,3600,60,1].forEach((s,i)=>{const q=Math.floor(d/s);d-=q*s;$("#cd"+i).textContent=String(q).padStart(2,"0")});
 }
-
+function proximo(){
+  const p=L.filter(x=>x.estado!=="hecho"),e=p.find(x=>x.id==="enlace");
+  if(e)return e;
+  p.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+  return p.find(x=>new Date(x.fecha)>new Date())||p[0]||null;
+}
+function aplicarEnlace(){
+  const q=new URLSearchParams(location.search),t=q.get("t");
+  if(!t)return;const d=new Date(t);if(isNaN(d))return;
+  L=L.filter(x=>x.id!=="enlace");
+  L.push({id:"enlace",fecha:toLocal(d),lugar:q.get("l")||"Próximo lanzamiento",notas:"",estado:"pendiente"});
+}
+function linkFor(x){return location.href.split(/[?#]/)[0]+"?t="+encodeURIComponent(new Date(x.fecha).toISOString())+"&l="+encodeURIComponent(x.lugar)}
+function syncUrl(x){try{history.replaceState(null,"",x?linkFor(x):location.href.split(/[?#]/)[0])}catch(e){}}
+function togglePanel(){
+  const p=$("#hPanel");
+  if(p.hidden){const t=proximo();$("#hLugar").value=t?t.lugar:"";$("#hFecha").value=t?String(t.fecha).slice(0,16):"";["hd","hh","hm"].forEach(i=>$("#"+i).value="");p.hidden=false;$("#hFecha").focus()}
+  else p.hidden=true;
+}
+function guardarHero(){
+  const t=proximo(),ms=((+$("#hd").value||0)*86400+(+$("#hh").value||0)*3600+(+$("#hm").value||0)*60)*1000;
+  let fecha=$("#hFecha").value;
+  if(ms>0)fecha=toLocal(new Date(Date.now()+ms));
+  else if(t&&fecha&&fecha===String(t.fecha).slice(0,16))fecha=t.fecha;
+  if(!fecha){alert("Elige la fecha y hora, o escribe cuánto falta.");return}
+  const lugar=$("#hLugar").value.trim()||(t&&t.lugar)||"Próximo lanzamiento";
+  let x=t;
+  if(x){x.fecha=fecha;x.lugar=lugar}else{x={id:Date.now().toString(36),fecha,lugar,notas:"",estado:"pendiente"};L.push(x)}
+  save();render();tick();syncUrl(x);$("#hPanel").hidden=true;
+}
+async function copiarEnlace(){
+  if(!$("#hPanel").hidden&&($("#hFecha").value||$("#hd").value||$("#hh").value||$("#hm").value))guardarHero();
+  const t=proximo();if(!t){alert("Primero programa una fecha.");return}
+  const u=linkFor(t),b=$("#hCopiar");
+  try{await navigator.clipboard.writeText(u);b.textContent="¡COPIADO!"}catch(e){prompt("Copia este enlace:",u);return}
+  setTimeout(()=>{b.textContent="COPIAR ENLACE"},1500);
+}
+function borrarHero(){
+  const t=proximo();if(!t)return;
+  if(confirm("¿Borrar este lanzamiento?")){L=L.filter(x=>x!==t);save();render();tick();syncUrl(null);$("#hPanel").hidden=true}
+}
 let editId=null,heroId=null;
 const pad=n=>String(n).padStart(2,"0");
 const toLocal=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
@@ -213,7 +267,7 @@ $("#fNuevo").addEventListener("submit",e=>{
 $("#fRes").addEventListener("submit",e=>{
   e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
   const x=L.find(i=>i.id===f.id);if(!x)return;
-  x.estado="hecho";x.resultado={altura:f.altura,vuelo:f.vuelo,descenso:f.descenso,exito:f.exito==="1",media:f.media};
+  x.estado="hecho";if(x.id==="enlace")x.id=Date.now().toString(36);x.resultado={altura:f.altura,vuelo:f.vuelo,descenso:f.descenso,exito:f.exito==="1",media:f.media};
   save();e.target.reset();render();tick();
 });
 $("#proximos").addEventListener("click",e=>{
@@ -229,7 +283,7 @@ $("#file").onchange=async e=>{
   try{L=JSON.parse(await e.target.files[0].text());save();render();tick()}catch(err){alert("Archivo no válido")}
 };
 
-load().then(()=>{render();tick();setInterval(tick,1000)});
+load().then(()=>{aplicarEnlace();render();tick();setInterval(tick,1000)});
 </script>
 <div id="mus"><button id="musica" type="button">🔊 Música</button><input id="vol" type="range" min="0" max="100" value="40" aria-label="Volumen"></div>
 <div id="ytp"></div>
