@@ -13,13 +13,18 @@
 *{box-sizing:border-box}
 body{overflow-x:hidden;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
 header{background:linear-gradient(100deg,#000 60%,var(--prof) 85%,var(--rojo));padding:calc(16px + env(safe-area-inset-top,0px)) 20px 16px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--rojo)}
-header img{width:64px;height:64px;border-radius:50%}
-header h1{margin:0;font-size:1.5rem;font-style:italic;letter-spacing:.5px}
+.logo{position:relative;flex:none;width:clamp(72px,12vw,110px);aspect-ratio:1}
+.logo::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(233,29,10,.75),transparent 70%);animation:late 3.2s ease-in-out infinite}
+.logo img{position:relative;display:block;width:100%;height:100%;object-fit:contain}
+@keyframes late{50%{transform:scale(1.22);opacity:.5}}
+.hero-logo{position:absolute;left:21%;top:21%;width:58%;aspect-ratio:1;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 30px rgba(233,29,10,.8));animation:flota 6s ease-in-out infinite}
+@keyframes flota{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.05);opacity:.42}}
+header h1{margin:0;font-family:Orbitron,system-ui,sans-serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:900;letter-spacing:3px;text-transform:uppercase}
 header h1 span{color:var(--rojo)}
 header small{display:block;color:var(--plata);letter-spacing:3px;font-size:.7rem;text-transform:uppercase}
 main{max-width:860px;margin:0 auto;padding:20px}
 h2{border-left:5px solid var(--rojo);padding-left:12px;font-size:1.4rem;margin:8px 0 16px}
-.count{position:relative;overflow:hidden;min-height:calc(100vh - 92px);min-height:calc(100svh - 92px);width:100vw;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;margin:-20px 0 32px calc(50% - 50vw);padding:20px 16px 24px;background:radial-gradient(ellipse at 50% 55%,#2b0a08 0%,#0a0707 65%,#050505 100%);border-bottom:1px solid rgba(233,29,10,.5);isolation:isolate}
+.count{position:relative;overflow:hidden;min-height:calc(100vh - 132px);min-height:calc(100svh - 132px);width:100vw;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;margin:-20px 0 32px calc(50% - 50vw);padding:20px 16px 24px;background:radial-gradient(ellipse at 50% 55%,#2b0a08 0%,#0a0707 65%,#050505 100%);border-bottom:1px solid rgba(233,29,10,.5);isolation:isolate}
 .count::before{content:"";position:absolute;top:-80px;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px);animation:scan 8s linear infinite}
 .count::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-10%;height:40%;z-index:-2;pointer-events:none;background:linear-gradient(rgba(182,182,182,.22) 1px,transparent 1px) 0 0/100% 40px,linear-gradient(90deg,rgba(233,29,10,.3) 1px,transparent 1px) 0 0/60px 100%;transform:perspective(300px) rotateX(62deg);-webkit-mask:linear-gradient(transparent,#000);mask:linear-gradient(transparent,#000)}
 @keyframes scan{to{transform:translateY(80px)}}
@@ -103,12 +108,11 @@ footer{text-align:center;color:#777;font-size:.8rem;padding:24px}
 #mus #musica{background:#E91D0A;color:#fff;border-radius:999px;padding:9px 14px;letter-spacing:1px}
 #vol{width:90px;height:28px;padding:0;border:0;background:transparent;accent-color:#E91D0A;touch-action:pan-x}
 #ytp{position:fixed;width:220px;height:220px;left:0;bottom:0;opacity:.01;pointer-events:none;z-index:-1;border:0}
-.bg-logo{position:absolute;left:50%;top:50%;width:min(130vw,1100px);aspect-ratio:1;border-radius:50%;opacity:.08;pointer-events:none;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));transition:transform .35s ease-out}
 </style>
 </head>
 <body>
 <header>
-  <img src="logo.png" alt="Logo Impulse-X">
+  <div class="logo"><img src="logo.png" alt="Logo Impulse-X"></div>
   <div><h1>Impulse<span>-X</span></h1><small>Equipo de coheteria · Reto F1025</small></div>
 </header>
 <main>
@@ -190,7 +194,7 @@ function tick(){
   const c=$("#count");
   if(!built){
     built=true;
-    c.innerHTML='<img class="bg-logo" src="logo.png" alt=""><p class="eyebrow">T – menos para el despegue</p><p class="lugar" id="cLugar"></p><div class="stage"><div class="glow g1"></div><div class="glow g2"></div><div class="orbit o1"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:110deg;--s:20px"><i class="pn r"></i></div><div class="pl" style="--a:235deg;--s:11px"><i class="pn s"></i></div></div><div class="orbit o2"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:70deg;--s:16px"><i class="pn w sat"></i></div><div class="pl" style="--a:200deg;--s:12px"><i class="pn d"></i></div><div class="pl" style="--a:300deg;--s:8px"><i class="pn s"></i></div></div><div class="clock">'+["DÍAS","HRS","MIN","SEG"].map((t,i)=>'<div class="u"><b id="cd'+i+'">00</b><span>'+t+'</span></div>').join('<i class="sep">:</i>')+'</div></div><div class="prog"><p class="prog-t" id="cProg"></p><button class="sec" id="editHero" type="button"></button><div class="panel" id="hPanel" hidden><label>Lugar<input id="hLugar" placeholder="Ej. Culiacán"></label><label>Fecha y hora de despegue<input type="datetime-local" id="hFecha"></label><label>O escribe cuánto falta</label><div class="row3"><input id="hd" type="number" min="0" placeholder="días"><input id="hh" type="number" min="0" placeholder="horas"><input id="hm" type="number" min="0" placeholder="min"></div><div class="btns"><button id="hGuardar" type="button">GUARDAR</button><button class="sec" id="hCopiar" type="button">COPIAR ENLACE</button><button class="sec" id="hBorrar" type="button">BORRAR</button></div></div></div>';
+    c.innerHTML='<p class="eyebrow">T – menos para el despegue</p><p class="lugar" id="cLugar"></p><div class="stage"><div class="glow g1"></div><div class="glow g2"></div><img class="hero-logo" src="logo.png" alt=""><div class="orbit o1"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:110deg;--s:20px"><i class="pn r"></i></div><div class="pl" style="--a:235deg;--s:11px"><i class="pn s"></i></div></div><div class="orbit o2"><div class="trail"></div><i class="head"></i><div class="pl" style="--a:70deg;--s:16px"><i class="pn w sat"></i></div><div class="pl" style="--a:200deg;--s:12px"><i class="pn d"></i></div><div class="pl" style="--a:300deg;--s:8px"><i class="pn s"></i></div></div><div class="clock">'+["DÍAS","HRS","MIN","SEG"].map((t,i)=>'<div class="u"><b id="cd'+i+'">00</b><span>'+t+'</span></div>').join('<i class="sep">:</i>')+'</div></div><div class="prog"><p class="prog-t" id="cProg"></p><button class="sec" id="editHero" type="button"></button><div class="panel" id="hPanel" hidden><label>Lugar<input id="hLugar" placeholder="Ej. Culiacán"></label><label>Fecha y hora de despegue<input type="datetime-local" id="hFecha"></label><label>O escribe cuánto falta</label><div class="row3"><input id="hd" type="number" min="0" placeholder="días"><input id="hh" type="number" min="0" placeholder="horas"><input id="hm" type="number" min="0" placeholder="min"></div><div class="btns"><button id="hGuardar" type="button">GUARDAR</button><button class="sec" id="hCopiar" type="button">COPIAR ENLACE</button><button class="sec" id="hBorrar" type="button">BORRAR</button></div></div></div>';
     $("#editHero").addEventListener("click",togglePanel);
     $("#hGuardar").addEventListener("click",guardarHero);
     $("#hCopiar").addEventListener("click",copiarEnlace);
@@ -322,13 +326,6 @@ mb.addEventListener("click",()=>{
     timer=setTimeout(()=>{const x=yt.getPlayerState();if(x!==1&&x!==3)mb.textContent="🔊 Toca otra vez"},3000);
   }
 });
-</script>
-<script>
-if(matchMedia("(hover:hover) and (pointer:fine)").matches)addEventListener("pointermove",e=>{
-  const el=document.querySelector(".bg-logo");if(!el)return;
-  el.style.setProperty("--px",((e.clientX/innerWidth-.5)*40)+"px");
-  el.style.setProperty("--py",((e.clientY/innerHeight-.5)*40)+"px");
-},{passive:true});
 </script>
 </body>
 </html>
