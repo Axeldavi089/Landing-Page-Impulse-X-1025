@@ -118,7 +118,6 @@ footer{text-align:center;color:#777;font-size:.8rem;padding:24px}
 #mus{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;align-items:center;gap:10px;background:rgba(10,8,8,.8);border:1px solid rgba(233,29,10,.7);border-radius:999px;padding:5px 14px 5px 5px;box-shadow:0 0 16px rgba(233,29,10,.4)}
 #mus #musica{background:#E91D0A;color:#fff;border-radius:999px;padding:9px 14px;letter-spacing:1px}
 #vol{width:90px;height:28px;padding:0;border:0;background:transparent;accent-color:#E91D0A;touch-action:pan-x}
-#ytp{position:fixed;width:220px;height:220px;left:0;bottom:0;opacity:.01;pointer-events:none;z-index:-1;border:0}
 .bg-logo{position:absolute;left:50%;top:50%;z-index:-1;width:min(130vw,1100px);aspect-ratio:1;object-fit:contain;opacity:.08;pointer-events:none;transform:translate(-50%,-50%);animation:aparece 1.4s ease-out both}
 #toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:30;max-width:min(92vw,420px);text-align:center;font-size:.9rem;background:rgba(10,8,8,.94);border:1px solid rgba(233,29,10,.7);color:#fff;border-radius:12px;padding:10px 16px;opacity:0;transform:translate(-50%,8px);pointer-events:none;transition:opacity .12s ease-out,transform .12s ease-out}
 #toast.on{opacity:1;transform:translate(-50%,0);transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
@@ -318,39 +317,24 @@ load().then(()=>{aplicarEnlace();render();tick();setInterval(tick,1000)});
 </script>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="mus"><button id="musica" type="button">🔊 Música</button><input id="vol" type="range" min="0" max="100" value="40" aria-label="Volumen"></div>
-<div id="ytp"></div>
+<audio id="bg" src="musica.mp3" loop preload="metadata"></audio>
 <script>
-let yt,ytListo=false,quiere=false,timer=null;
-const mb=document.getElementById("musica"),vol=document.getElementById("vol");
-const tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";
-tag.onerror=()=>{mb.textContent="⚠️ Sin conexión"};
-document.head.appendChild(tag);
-const msgErr={2:"el enlace del video no es válido",5:"error del reproductor",100:"el video no existe o es privado",101:"el dueño del video no permite reproducirlo en otras páginas",150:"el dueño del video no permite reproducirlo en otras páginas",153:"falta el origen (abre la página desde tu enlace de GitHub Pages, no desde el archivo)"};
-window.onYouTubeIframeAPIReady=()=>{
-  const pv={playsinline:1,controls:0,rel:0,disablekb:1,enablejsapi:1};
-  if(/^https?:/.test(location.protocol))pv.origin=location.origin;
-  yt=new YT.Player("ytp",{height:"220",width:"220",videoId:"hKRUPYrAQoE",playerVars:pv,events:{
-    onReady:()=>{ytListo=true;yt.setVolume(+vol.value);if(quiere)yt.playVideo()},
-    onStateChange:e=>{
-      const S=YT.PlayerState;
-      if(e.data===S.PLAYING){clearTimeout(timer);mb.textContent="🔇 Pausar"}
-      else if(e.data===S.PAUSED){mb.textContent="🔊 Música"}
-      else if(e.data===S.ENDED){yt.playVideo()}
-    },
-    onError:e=>{clearTimeout(timer);quiere=false;mb.textContent="⚠️ No disponible";toast("No se pudo reproducir la música: "+(msgErr[e.data]||"error "+e.data)+".")}
-  }});
-};
-vol.addEventListener("input",()=>{if(ytListo)yt.setVolume(+vol.value)});
-mb.addEventListener("click",()=>{
-  if(!ytListo){quiere=true;mb.textContent="Cargando...";return}
-  const st=yt.getPlayerState();
-  if(st===1||st===3){quiere=false;yt.pauseVideo();mb.textContent="🔊 Música"}
-  else{
-    quiere=true;yt.unMute();yt.setVolume(+vol.value);yt.playVideo();
-    clearTimeout(timer);
-    timer=setTimeout(()=>{const x=yt.getPlayerState();if(x!==1&&x!==3)mb.textContent="🔊 Toca otra vez"},3000);
-  }
-});
+(function(){
+  const au=document.getElementById("bg"),mb=document.getElementById("musica"),vol=document.getElementById("vol");
+  au.volume=+vol.value/100;
+  const etiqueta=()=>{mb.textContent=au.paused?"🔊 Música":"🔇 Pausar"};
+  au.addEventListener("play",etiqueta);au.addEventListener("pause",etiqueta);
+  au.addEventListener("waiting",()=>{if(!au.paused)mb.textContent="Cargando..."});
+  au.addEventListener("playing",etiqueta);
+  au.addEventListener("error",()=>{mb.textContent="⚠️ No disponible";toast("No se encontró musica.mp3. Súbelo al repositorio junto al index.html.")});
+  vol.addEventListener("input",()=>{au.volume=+vol.value/100});
+  mb.addEventListener("click",()=>{
+    if(au.paused){
+      const p=au.play();
+      if(p&&p.catch)p.catch(()=>{mb.textContent="🔊 Música";toast("El navegador bloqueó el sonido. Toca el botón otra vez.")});
+    }else au.pause();
+  });
+})();
 </script>
 <script>
 (function(){
