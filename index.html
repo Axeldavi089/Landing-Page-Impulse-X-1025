@@ -39,11 +39,17 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px
 .brand h1{margin:0;font-family:var(--f-display);font-size:1.05rem;font-weight:900;letter-spacing:.06em;font-style:italic;line-height:1.1}
 .brand h1 span{color:var(--red-hi)}
 .brand small{display:block;color:var(--muted);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-nav{margin-left:auto;display:flex;gap:4px}
-nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem;padding:10px 14px;border-radius:999px;transition:color .15s ease,background .15s ease}
+nav{margin-left:auto;display:flex;gap:2px}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem;padding:10px 12px;border-radius:999px;white-space:nowrap;transition:color .15s ease,background .15s ease}
 nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
-@media(max-width:560px){nav a.opt{display:none}.brand small{display:none}}
-@media(max-width:380px){nav{display:none}}
+nav a.on{color:var(--text);background:rgba(233,29,10,.16)}
+@media(max-width:1060px){
+  header{flex-wrap:wrap;padding-bottom:0}
+  nav{order:3;width:calc(100% + 40px);margin:0 -20px;padding:4px 16px 8px;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 24px),transparent);mask:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 24px),transparent)}
+  nav::-webkit-scrollbar{display:none}
+  nav a{padding:8px 12px;font-size:.85rem}
+}
+@media(max-width:560px){.brand small{display:none}}
 
 /* ===== Portada / cuenta regresiva ===== */
 .count{position:relative;overflow:hidden;min-height:calc(100vh - var(--hh,66px));min-height:calc(100svh - var(--hh,66px));display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 16px 36px;background:radial-gradient(ellipse 70% 55% at 50% 52%,#2a0907 0%,#0d0808 60%,var(--bg) 100%);border-bottom:1px solid var(--border);isolation:isolate}
@@ -190,6 +196,106 @@ form>button{justify-self:start}
 @media(max-width:520px){form>button{justify-self:stretch}}
 select{max-width:100%}
 
+/* Misión */
+.mision{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:start}
+.mision .big{margin:0;font-size:clamp(1.05rem,2.2vw,1.2rem);color:#e4e4e7;line-height:1.7}
+.mision .big strong{color:var(--text)}
+.goals{display:grid;gap:12px}
+.goal{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.goal .n{font-family:var(--f-display);font-weight:700;font-size:.9rem;color:var(--red-hi);width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:rgba(233,29,10,.12);border:1px solid rgba(233,29,10,.35)}
+.goal h3{margin:0 0 2px;font-size:1.02rem}
+.goal p{margin:0;color:var(--muted);font-size:.92rem}
+.eq{margin-top:18px;padding:16px 18px;border-radius:var(--r);background:var(--bg-2);border:1px dashed var(--border-2)}
+.eq code{display:block;font-family:"Roboto Mono",ui-monospace,Consolas,monospace;font-size:clamp(.82rem,2.2vw,.98rem);color:#f4f4f5;overflow-x:auto;white-space:nowrap;padding:4px 0}
+.eq small{color:var(--muted);font-size:.82rem}
+@media(max-width:820px){.mision{grid-template-columns:1fr}}
+
+/* Cohete */
+.rocket{display:grid;grid-template-columns:minmax(0,1fr) 180px minmax(0,1fr);gap:20px;align-items:center;background:radial-gradient(ellipse at 50% 60%,rgba(233,29,10,.12),transparent 65%),var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px}
+.rocket svg.draw{width:100%;height:auto;max-height:420px;filter:drop-shadow(0 0 22px rgba(233,29,10,.25))}
+.specs{display:grid;gap:14px}
+.spec{position:relative;padding:12px 14px;border-radius:12px;background:rgba(10,10,13,.6);border:1px solid var(--border)}
+.spec span{display:block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.spec b{display:block;margin-top:2px;font-family:var(--f-display);font-size:1.12rem;font-weight:700}
+.spec b.tbd{font-family:var(--f-body);font-size:.95rem;font-weight:600;color:var(--subtle);font-style:italic}
+.specs.l .spec{text-align:right}
+.specs.l .spec::after,.specs.r .spec::before{content:"";position:absolute;top:50%;width:20px;height:1px;background:linear-gradient(90deg,rgba(233,29,10,.7),transparent)}
+.specs.l .spec::after{right:-21px;transform:scaleX(-1)}
+.specs.r .spec::before{left:-21px}
+@media(max-width:760px){.rocket{grid-template-columns:1fr 1fr;padding:18px}.rocket svg.draw{grid-column:1/-1;order:-1;max-height:240px}.specs.l .spec{text-align:left}.specs .spec::before,.specs .spec::after{display:none}}
+
+/* Bitácora */
+.prog-bar{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:var(--muted);font-size:.9rem;font-weight:600}
+.prog-bar .track{flex:1;height:6px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.prog-bar .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red-deep),var(--red-hi));transition:width .6s var(--ease-out)}
+.fases{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:f}
+.fase{position:relative;padding:16px 14px 14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);counter-increment:f}
+.fase::before{content:"Fase " counter(f);display:block;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle)}
+.fase h3{margin:4px 0 8px;font-size:.98rem;line-height:1.3}
+.fase .st{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--subtle)}
+.fase .st i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.fase.hecha{border-color:rgba(34,197,94,.35)}.fase.hecha .st{color:#4ade80}
+.fase.curso{border-color:rgba(233,29,10,.5);box-shadow:0 0 0 1px rgba(233,29,10,.2),0 10px 30px rgba(233,29,10,.12)}.fase.curso .st{color:var(--red-hi)}
+.fase.curso .st i{animation:pulso 1.8s ease-out infinite}
+.fase p{margin:6px 0 0;color:var(--muted);font-size:.85rem}
+
+/* Predicción vs real */
+.pred{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media(max-width:900px){.pred{grid-template-columns:1fr}}
+.panel2{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;min-width:0}
+.panel2 h3{margin:0 0 12px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+.tbl th{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);padding:0 8px 10px;border-bottom:1px solid var(--border-2)}
+.tbl td{padding:12px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td:first-child{font-weight:600;color:#e4e4e7}
+.tbl .num{text-align:right;white-space:nowrap}
+.tbl th.num{text-align:right}
+.tbl .pend{color:var(--subtle);font-style:italic}
+.err{display:inline-block;min-width:54px;padding:2px 8px;border-radius:999px;font-size:.8rem;font-weight:700;text-align:center}
+.err.g{background:var(--ok-bg);color:#4ade80}.err.m{background:rgba(245,158,11,.14);color:#fbbf24}.err.b{background:rgba(255,59,36,.14);color:#ff8a7a}
+@media(max-width:520px){
+  .panel2{padding:14px}
+  .tbl{font-size:.82rem}
+  .tbl th{letter-spacing:.06em;font-size:.64rem;padding:0 4px 8px}
+  .tbl td{padding:10px 4px}
+  .err{min-width:0;padding:2px 6px;font-size:.74rem}
+}
+.global{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:14px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border)}
+.global b{font-family:var(--f-display);font-size:1.6rem}
+.global span{color:var(--muted);font-size:.88rem}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .axis{stroke:rgba(255,255,255,.18);stroke-width:1}
+.chart .grid{stroke:rgba(255,255,255,.06);stroke-width:1}
+.chart text{fill:var(--subtle);font-size:11px;font-family:var(--f-body)}
+.chart .pl-pred{fill:none;stroke:#4A8FD4;stroke-width:2;stroke-dasharray:6 5;stroke-linecap:round}
+.chart .pl-band{fill:#4A8FD4;opacity:.12}
+.chart .pl-real{stroke:#F0442F;stroke-width:2}
+.chart .dot{fill:#F0442F;stroke:var(--surface);stroke-width:2}
+.chart .dot.p{fill:#4A8FD4}
+.chart .lbl{fill:#e4e4e7;font-size:11.5px;font-weight:600}
+.chart .cross{stroke:rgba(255,255,255,.35);stroke-width:1;stroke-dasharray:3 3}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 10px;font-size:.82rem;color:#d4d4d8}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:22px;height:0;border-top:2px dashed #4A8FD4}
+.legend i.r{border-top:2px solid #F0442F}
+.tip{position:absolute;pointer-events:none;background:rgba(14,12,12,.96);border:1px solid var(--border-2);border-radius:10px;padding:8px 10px;font-size:.8rem;line-height:1.4;white-space:nowrap;opacity:0;transform:translate(-50%,calc(-100% - 10px));transition:opacity .12s ease}
+.tip.on{opacity:1}
+.tip b{font-variant-numeric:tabular-nums}
+.chart-empty{display:grid;place-items:center;text-align:center;min-height:200px;color:var(--muted);font-size:.9rem;border:1px dashed var(--border-2);border-radius:12px;padding:20px}
+.foot{margin:12px 0 0;color:var(--subtle);font-size:.8rem}
+
+/* Equipo */
+.crew{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:12px}
+.mate{display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:border-color .2s ease,transform .2s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.mate:hover{border-color:rgba(233,29,10,.45);transform:translateY(-2px)}}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:1rem;color:#fff;background:linear-gradient(135deg,var(--red),#5a0200);box-shadow:0 0 0 2px var(--surface),0 0 0 3px rgba(233,29,10,.5)}
+.av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.mate .rol{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red-hi)}
+.mate h3{margin:0;font-size:1.02rem;line-height:1.3}
+.mate p{margin:0;color:var(--muted);font-size:.86rem}
+
 /* Datos */
 .data-box{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(135deg,var(--surface-2),var(--surface));border:1px solid var(--border);border-radius:var(--r-lg);padding:22px}
 .data-box p{margin:6px 0 0;color:var(--muted);max-width:60ch;font-size:.92rem}
@@ -214,8 +320,11 @@ footer strong{display:block;margin-top:8px;font-family:var(--f-display);color:va
   .o1{animation:altA 8s ease-in-out infinite}.o2{animation:altB 8s ease-in-out infinite}
   .u,.sep,.count .eyebrow,.count .lugar,.prog{animation:aparece .3s ease-out both}
   .bg-logo{animation:none}
-  .card:hover{transform:none}
+  .card:hover,.mate:hover{transform:none}
+  .flame,.fase.curso .st i{animation:none}
 }
+@media(prefers-reduced-motion:no-preference){.flame{transform-origin:60px 334px;animation:fuego .18s ease-in-out infinite alternate}}
+@keyframes fuego{to{transform:scaleY(.86) scaleX(1.06);opacity:.85}}
 </style>
 </head>
 <body>
@@ -244,9 +353,13 @@ footer strong{display:block;margin-top:8px;font-family:var(--f-display);color:va
     <div><h1>IMPULSE<span>-X</span></h1><small>Equipo de cohetería · Reto F1025</small></div>
   </a>
   <nav aria-label="Secciones">
+    <a href="#mision-sec">Misión</a>
+    <a href="#cohete-sec">Cohete</a>
+    <a href="#bitacora-sec">Bitácora</a>
+    <a href="#pred-sec">Predicción</a>
     <a href="#proximos-sec">Calendario</a>
     <a href="#hechos-sec">Resultados</a>
-    <a class="opt" href="#datos-sec">Datos</a>
+    <a href="#equipo-sec">Equipo</a>
   </nav>
 </header>
 <main id="main">
@@ -254,6 +367,88 @@ footer strong{display:block;margin-top:8px;font-family:var(--f-display);color:va
 
   <div class="wrap">
     <div class="stats" id="stats" aria-label="Resumen del equipo"></div>
+
+    <section id="mision-sec" aria-labelledby="t-mision">
+      <div class="sec-head"><div>
+        <p class="kicker">01 · La misión</p>
+        <h2 id="t-mision">Volar alto es fácil. Predecirlo es el reto.</h2>
+      </div></div>
+      <div class="mision">
+        <div>
+          <p class="big">En el <strong>Reto F1025</strong> diseñamos, construimos y lanzamos un cohete a escala. Antes del despegue, usamos la física para <strong>predecir cómo va a volar</strong>: qué tan alto llega, cuánto tarda y cómo baja. Después comparamos la predicción con lo que realmente pasó.</p>
+          <div class="eq">
+            <small>Segunda ley de Newton durante el ascenso: empuje, peso y arrastre del aire.</small>
+            <code>m · dv/dt = T(t) − m·g − ½·ρ·C<sub>d</sub>·A·v·|v|</code>
+          </div>
+        </div>
+        <div class="goals">
+          <div class="goal"><span class="n">01</span><div><h3>Predecir con precisión</h3><p>Gana quien mejor entiende su cohete: la predicción más cercana al vuelo real.</p></div></div>
+          <div class="goal"><span class="n">02</span><div><h3>Un vuelo estable</h3><p>Despegue limpio y trayectoria recta, de la rampa hasta el punto más alto.</p></div></div>
+          <div class="goal"><span class="n">03</span><div><h3>Regreso a salvo</h3><p>El paracaídas trae de vuelta el cohete para leer los datos y comprobar el resultado.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cohete-sec" aria-labelledby="t-cohete">
+      <div class="sec-head"><div>
+        <p class="kicker">02 · El cohete</p>
+        <h2 id="t-cohete">Ficha técnica</h2>
+        <p class="lead">Las medidas de nuestro cohete. Los datos se actualizan conforme los confirmamos.</p>
+      </div></div>
+      <div class="rocket">
+        <div class="specs l" id="specsL"></div>
+        <svg class="draw" viewBox="0 0 120 420" role="img" aria-label="Esquema del cohete Impulse-X">
+          <defs>
+            <linearGradient id="gBody" x1="0" x2="1"><stop offset="0" stop-color="#6b6b72"/><stop offset=".45" stop-color="#e9e9ec"/><stop offset="1" stop-color="#55555c"/></linearGradient>
+            <linearGradient id="gRed" x1="0" x2="1"><stop offset="0" stop-color="#7a0b02"/><stop offset=".45" stop-color="#ff3b24"/><stop offset="1" stop-color="#6a0801"/></linearGradient>
+            <linearGradient id="gFire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".35" stop-color="#ff7a1a"/><stop offset="1" stop-color="#E91D0A" stop-opacity="0"/></linearGradient>
+          </defs>
+          <path d="M60 8C74 30 84 70 84 112H36C36 70 46 30 60 8Z" fill="url(#gRed)"/>
+          <rect x="36" y="112" width="48" height="210" fill="url(#gBody)"/>
+          <rect x="36" y="150" width="48" height="6" fill="url(#gRed)"/>
+          <rect x="36" y="286" width="48" height="6" fill="url(#gRed)"/>
+          <circle cx="60" cy="190" r="10" fill="#1b1b21" stroke="#E91D0A" stroke-width="3"/>
+          <circle cx="57" cy="187" r="3" fill="#fff" opacity=".6"/>
+          <text x="60" y="250" text-anchor="middle" transform="rotate(-90 60 250)" font-family="Orbitron,sans-serif" font-size="11" font-weight="900" font-style="italic" fill="#1b1b21" letter-spacing="1">IMPULSE-X</text>
+          <path d="M36 262 10 318v24l26-14Z" fill="url(#gRed)"/>
+          <path d="M84 262l26 56v24l-26-14Z" fill="url(#gRed)"/>
+          <rect x="44" y="322" width="32" height="10" rx="2" fill="#2b2b31"/>
+          <path class="flame" d="M46 334h28c0 26-8 56-14 80-6-24-14-54-14-80Z" fill="url(#gFire)"/>
+        </svg>
+        <div class="specs r" id="specsR"></div>
+      </div>
+    </section>
+
+    <section id="bitacora-sec" aria-labelledby="t-bit">
+      <div class="sec-head"><div>
+        <p class="kicker">03 · Bitácora</p>
+        <h2 id="t-bit">El camino hacia el despegue</h2>
+        <p class="lead">Cada fase del proyecto, de la idea al cielo.</p>
+      </div></div>
+      <div class="prog-bar" id="faseProg"></div>
+      <ol class="fases" id="fases"></ol>
+    </section>
+
+    <section id="pred-sec" aria-labelledby="t-pred">
+      <div class="sec-head"><div>
+        <p class="kicker">04 · Modelo y resultados</p>
+        <h2 id="t-pred">Predicción vs. real</h2>
+        <p class="lead">Lo que calculamos antes del vuelo contra lo que midió el cohete. El error se calcula solo al registrar un resultado.</p>
+      </div></div>
+      <div class="pred">
+        <div class="panel2">
+          <h3>Tabla comparativa</h3>
+          <div id="predGlobal"></div>
+          <div style="overflow-x:auto"><table class="tbl" id="predTbl"></table></div>
+          <p class="foot">Error % = |predicho − real| ÷ real × 100</p>
+        </div>
+        <div class="panel2">
+          <h3>Altura vs. tiempo</h3>
+          <div class="legend" id="chartLegend"><span><i></i>Predicción</span><span><i class="r"></i>Real</span></div>
+          <div class="chart" id="chart"></div>
+        </div>
+      </div>
+    </section>
 
     <section id="proximos-sec" aria-labelledby="t-prox">
       <div class="sec-head">
@@ -306,10 +501,23 @@ footer strong{display:block;margin-top:8px;font-family:var(--f-display);color:va
             <label>Descenso con paracaídas (s)<input type="number" step="any" min="0" name="descenso" required inputmode="decimal"></label>
             <label>Resultado<select name="exito"><option value="1">Éxito</option><option value="0">Falla</option></select></label>
           </div>
+          <div class="row">
+            <label>Tiempo al punto más alto (s, opcional)<input type="number" step="any" min="0" name="tapogeo" inputmode="decimal"></label>
+            <label>Estado del cohete al recuperarlo<select name="estadoFinal"><option value="Intacto">Intacto</option><option value="Daño leve">Daño leve</option><option value="Dañado">Dañado</option><option value="No recuperado">No recuperado</option></select></label>
+          </div>
           <label>Enlace a foto o video (opcional)<input type="url" name="media" placeholder="https://..."></label>
           <button><svg class="ic"><use href="#i-check"/></svg>Guardar resultado</button>
         </form>
       </details>
+    </section>
+
+    <section id="equipo-sec" aria-labelledby="t-eq">
+      <div class="sec-head"><div>
+        <p class="kicker">05 · Equipo</p>
+        <h2 id="t-eq">La tripulación</h2>
+        <p class="lead">Las personas detrás de Impulse-X.</p>
+      </div></div>
+      <div class="crew" id="crew"></div>
     </section>
 
     <section id="datos-sec" aria-labelledby="t-datos">
@@ -343,6 +551,127 @@ const fmt=f=>{const d=new Date(f);return isNaN(d)?"Fecha inválida":d.toLocaleSt
 const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const num=v=>{const n=parseFloat(v);return isNaN(n)?"—":n.toLocaleString("es-MX",{maximumFractionDigits:2})};
 
+/* =====================================================================
+   DATOS DEL EQUIPO: edita aquí. Lo que dejes vacío ("" o null) aparece
+   como "Por confirmar" en la página.
+   ===================================================================== */
+const EQUIPO={
+  // Ficha técnica del cohete (texto libre, por ejemplo "35 cm" o "Estes A8-3")
+  cohete:{
+    largo:"", diametro:"", masa:"",
+    motor:"", paracaidas:"", recuperacion:""
+  },
+  // Predicción del modelo, en números (metros y segundos). Ejemplo: apogeo:57
+  prediccion:{
+    apogeo:null,      // altura máxima (m)
+    tApogeo:null,     // tiempo hasta el punto más alto (s)
+    tVuelo:null,      // duración total del vuelo (s)
+    tDescenso:null    // tiempo de descenso con paracaídas (s)
+  },
+  // Fases del proyecto. estado: "hecha", "curso" o "pendiente"
+  fases:[
+    {nombre:"Requisitos",   estado:"pendiente", nota:""},
+    {nombre:"Diseño",       estado:"pendiente", nota:""},
+    {nombre:"Construcción", estado:"pendiente", nota:""},
+    {nombre:"Pruebas",      estado:"pendiente", nota:""},
+    {nombre:"Integración",  estado:"pendiente", nota:""},
+    {nombre:"Lanzamiento",  estado:"pendiente", nota:""}
+  ],
+  // Integrantes. foto es opcional (por ejemplo "fotos/ana.jpg")
+  integrantes:[
+    // {nombre:"Nombre Apellido", rol:"Líder de equipo", carrera:"Ing. en ...", foto:""}
+  ]
+};
+
+const vacio=v=>v===null||v===undefined||String(v).trim()==="";
+const tbd='<b class="tbd">Por confirmar</b>';
+function renderCohete(){
+  const c=EQUIPO.cohete,spec=(l,v)=>`<div class="spec"><span>${l}</span>${vacio(v)?tbd:`<b>${esc(v)}</b>`}</div>`;
+  $("#specsL").innerHTML=spec("Largo",c.largo)+spec("Diámetro",c.diametro)+spec("Masa al despegue",c.masa);
+  $("#specsR").innerHTML=spec("Motor",c.motor)+spec("Paracaídas",c.paracaidas)+spec("Recuperación",c.recuperacion);
+}
+function renderFases(){
+  const F=EQUIPO.fases,hechas=F.filter(f=>f.estado==="hecha").length,pct=F.length?Math.round(hechas/F.length*100):0;
+  const lbl={hecha:"Completada",curso:"En curso",pendiente:"Pendiente"};
+  const prox=proximo();
+  $("#faseProg").innerHTML=`<span>${hechas} de ${F.length} fases completadas</span><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="Avance del proyecto"><div class="fill" style="width:${pct}%"></div></div><span>${pct}%</span>`;
+  $("#fases").innerHTML=F.map(f=>{
+    const e=lbl[f.estado]?f.estado:"pendiente";
+    let nota=f.nota;
+    if(vacio(nota)&&/lanzamiento/i.test(f.nombre)&&prox&&!isNaN(new Date(prox.fecha)))nota=new Date(prox.fecha).toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"});
+    return `<li class="fase ${e}"><h3>${esc(f.nombre)}</h3><span class="st"><i></i>${lbl[e]}</span>${vacio(nota)?"":`<p>${esc(nota)}</p>`}</li>`;
+  }).join("");
+}
+function renderEquipo(){
+  const I=EQUIPO.integrantes.filter(m=>!vacio(m.nombre));
+  const ini=n=>n.trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase();
+  $("#crew").innerHTML=I.length?I.map(m=>`<article class="mate"><div class="av">${vacio(m.foto)?esc(ini(m.nombre)):`<img src="${esc(m.foto)}" alt="" loading="lazy">`}</div>${vacio(m.rol)?"":`<span class="rol">${esc(m.rol)}</span>`}<h3>${esc(m.nombre)}</h3>${vacio(m.carrera)?"":`<p>${esc(m.carrera)}</p>`}</article>`).join(""):`<div class="empty" style="grid-column:1/-1">${ic("rocket")}<strong>Muy pronto conocerás a la tripulación</strong>Estamos preparando la presentación del equipo.</div>`;
+}
+function renderPred(h){
+  const P=EQUIPO.prediccion,last=h.find(x=>x.resultado)||null,r=last?last.resultado:{};
+  const n=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
+  const rows=[
+    ["Altura máxima","m",n(P.apogeo),n(r.altura)],
+    ["Tiempo al punto más alto","s",n(P.tApogeo),n(r.tapogeo)],
+    ["Duración del vuelo","s",n(P.tVuelo),n(r.vuelo)],
+    ["Descenso con paracaídas","s",n(P.tDescenso),n(r.descenso)]
+  ];
+  const errs=[];
+  const cell=(v,u)=>v===null?'<span class="pend">Por confirmar</span>':`${num(v)} ${u}`;
+  const body=rows.map(([l,u,p,re])=>{
+    let e='<span class="pend">—</span>';
+    if(p!==null&&re!==null&&re>0){const pc=Math.abs(p-re)/re*100;errs.push(pc);e=`<span class="err ${pc<=5?"g":pc<=15?"m":"b"}">${num(pc)}%</span>`}
+    return `<tr><td>${l}</td><td class="num">${cell(p,u)}</td><td class="num">${re===null?`<span class="pend">${last?"Sin dato":"Pendiente"}</span>`:`${num(re)} ${u}`}</td><td class="num">${e}</td></tr>`;
+  }).join("");
+  const est=last?(r.estadoFinal||(r.exito?"Registrado":"—")):null;
+  $("#predTbl").innerHTML=`<thead><tr><th>Variable</th><th class="num">Predicción</th><th class="num">Real</th><th class="num">Error</th></tr></thead><tbody>${body}<tr><td>Estado del cohete</td><td class="num">Intacto</td><td class="num">${est?esc(est):'<span class="pend">Pendiente</span>'}</td><td class="num"><span class="pend">—</span></td></tr></tbody>`;
+  const avg=errs.length?errs.reduce((a,b)=>a+b,0)/errs.length:null;
+  $("#predGlobal").innerHTML=`<div class="global">${avg===null?`<b style="font-size:1.05rem">Pendiente de lanzamiento</b><span>El error promedio se calcula al registrar datos reales.</span>`:`<b>${num(avg)}%</b><span>error promedio · vuelo en ${esc(last.lugar)}</span>`}</div>`;
+  renderChart(P,r,n);
+}
+function renderChart(P,r,n){
+  const A=n(P.apogeo),ta=n(P.tApogeo),tv=n(P.tVuelo),ra=n(r.altura),rta=n(r.tapogeo),rtv=n(r.vuelo);
+  const hasP=A!==null&&ta!==null&&tv!==null&&tv>ta&&ta>0,hasR=ra!==null;
+  const box=$("#chart");
+  if(!hasP&&!hasR){box.innerHTML='<div class="chart-empty">La curva aparecerá cuando carguemos la predicción del modelo<br>y registremos el primer vuelo.</div>';return}
+  const W=520,H=280,L=44,R=16,T=16,B=34;
+  const xmax=Math.max(hasP?tv:0,rtv||0,rta||0,1)*1.06,ymax=Math.max(hasP?A:0,ra||0,1)*1.18;
+  const step=v=>{const p=Math.pow(10,Math.floor(Math.log10(v/4))),m=v/4/p;return (m<1.5?1:m<3?2:m<7?5:10)*p};
+  const sx=t=>L+t/xmax*(W-L-R),sy=y=>H-B-y/ymax*(H-T-B);
+  const hp=t=>t<=ta?A*(1-Math.pow(1-t/ta,2)):Math.max(0,A*(1-(t-ta)/(tv-ta)));
+  let g="";
+  const xs=step(xmax),ys=step(ymax);
+  for(let y=0;y<=ymax;y+=ys)g+=`<line class="grid" x1="${L}" x2="${W-R}" y1="${sy(y)}" y2="${sy(y)}"/><text x="${L-8}" y="${sy(y)+4}" text-anchor="end">${num(y)}</text>`;
+  for(let x=0;x<=xmax;x+=xs)g+=`<text x="${sx(x)}" y="${H-B+18}" text-anchor="middle">${num(x)}</text>`;
+  g+=`<line class="axis" x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}"/><text x="${W-R}" y="${H-4}" text-anchor="end">t (s)</text><text x="${L-8}" y="${T-4}" text-anchor="end">h (m)</text>`;
+  if(hasP){
+    let d="";for(let i=0;i<=80;i++){const t=tv*i/80;d+=(i?"L":"M")+sx(t).toFixed(1)+" "+sy(hp(t)).toFixed(1)}
+    g+=`<path class="pl-pred" d="${d}"/><circle class="dot p" cx="${sx(ta)}" cy="${sy(A)}" r="5"/><text class="lbl" x="${sx(ta)}" y="${sy(A)-12}" text-anchor="middle">Predicción ${num(A)} m</text>`;
+  }
+  if(hasR){
+    if(rta!==null&&rtv!==null&&rtv>rta){
+      g+=`<polyline class="pl-real" fill="none" points="${sx(0)},${sy(0)} ${sx(rta)},${sy(ra)} ${sx(rtv)},${sy(0)}"/><circle class="dot" cx="${sx(rta)}" cy="${sy(ra)}" r="5"/>`;
+    }else{
+      g+=`<line class="pl-real" x1="${L}" x2="${W-R}" y1="${sy(ra)}" y2="${sy(ra)}"/>`;
+    }
+    if(rta!==null)g+=`<text class="lbl" x="${sx(rta)+10}" y="${sy(ra)+16}" text-anchor="start">Real ${num(ra)} m</text>`;
+    else g+=`<text class="lbl" x="${W-R-4}" y="${sy(ra)-8}" text-anchor="end">Real ${num(ra)} m</text>`;
+  }
+  g+=`<line class="cross" id="cx" y1="${T}" y2="${H-B}" x1="-10" x2="-10"/><circle class="dot p" id="cdot" r="5" cx="-20" cy="-20"/><rect x="${L}" y="${T}" width="${W-L-R}" height="${H-T-B}" fill="transparent" id="hit"/>`;
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfica de altura contra tiempo: ${hasP?`predicción con altura máxima de ${num(A)} metros a los ${num(ta)} segundos`:"sin predicción"}${hasR?`, altura real de ${num(ra)} metros`:""}.">${g}</svg><div class="tip" id="tip"></div>`;
+  const svg=box.querySelector("svg"),tip=$("#tip"),cx=$("#cx"),cd=$("#cdot");
+  if(!hasP){cd.remove();return}
+  const move=e=>{
+    const b=svg.getBoundingClientRect(),px=(e.clientX-b.left)/b.width*W;
+    const t=Math.min(tv,Math.max(0,(px-L)/(W-L-R)*xmax)),y=hp(t);
+    cx.setAttribute("x1",sx(t));cx.setAttribute("x2",sx(t));cd.setAttribute("cx",sx(t));cd.setAttribute("cy",sy(y));
+    tip.innerHTML=`t = <b>${num(t)} s</b><br>Predicción: <b>${num(y)} m</b>`;
+    tip.style.left=(sx(t)/W*b.width)+"px";tip.style.top=(sy(y)/H*b.height)+"px";tip.classList.add("on");
+  };
+  const out=()=>{tip.classList.remove("on");cx.setAttribute("x1",-10);cx.setAttribute("x2",-10);cd.setAttribute("cx",-20)};
+  const hit=$("#hit");hit.addEventListener("pointermove",move);hit.addEventListener("pointerleave",out);
+}
+
 function save(){try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}}
 async function load(){
   try{const s=localStorage.getItem(KEY);if(s){L=JSON.parse(s);return}}catch(e){}
@@ -370,7 +699,7 @@ function renderStats(p,h){
 function render(){
   const p=L.filter(x=>x.estado!=="hecho").sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
   const h=L.filter(x=>x.estado==="hecho").sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
-  renderStats(p,h);
+  renderStats(p,h);renderPred(h);renderFases();
   $("#proximos").innerHTML=p.length?p.map(x=>`<article class="card launch">${dateBlock(x.fecha)}<div><h3>${esc(x.lugar)}</h3><div class="meta">${ic("cal")}${esc(fmt(x.fecha))}</div><div class="chip">${ic("clock")}<span data-t="${esc(x.fecha)}"></span></div>${x.notas?`<p class="notes">${esc(x.notas)}</p>`:""}</div><div class="actions"><button class="sec sm" data-edit="${esc(x.id)}">${ic("edit")}Editar</button><button class="sec sm danger" data-del="${esc(x.id)}">${ic("trash")}Eliminar</button></div></article>`).join(""):`<div class="empty" style="grid-column:1/-1">${ic("rocket")}<strong>Aún no hay lanzamientos programados</strong>Usa el botón de abajo para agregar el primero.</div>`;
   $("#hechos").innerHTML=h.length?h.map(x=>{const r=x.resultado||{};return `<article class="card res ${r.exito?"ok":"fail"}"><div class="top"><span class="badge ${r.exito?"ok":"fail"}">${ic(r.exito?"check":"alert")}${r.exito?"Éxito":"Falla"}</span></div><h3>${esc(x.lugar)}</h3><div class="meta">${ic("cal")}${esc(fmt(x.fecha))}</div><div class="metrics"><div class="metric"><b>${num(r.altura)}<small>m</small></b><span>Altura</span></div><div class="metric"><b>${num(r.vuelo)}<small>s</small></b><span>Vuelo</span></div><div class="metric"><b>${num(r.descenso)}<small>s</small></b><span>Descenso</span></div></div>${/^https?:\/\//.test(r.media||"")?`<a href="${esc(r.media)}" target="_blank" rel="noopener">${ic("ext")}Ver foto o video</a>`:""}</article>`}).join(""):`<div class="empty" style="grid-column:1/-1">${ic("flag")}<strong>Todavía no hay resultados</strong>Cuando un cohete vuele, registra aquí su altura y tiempos.</div>`;
   $("#selId").innerHTML=p.map(x=>`<option value="${esc(x.id)}">${esc(x.lugar)} · ${esc(fmt(x.fecha))}</option>`).join("")||'<option value="">Sin lanzamientos pendientes</option>';
@@ -473,7 +802,7 @@ $("#fNuevo").addEventListener("submit",e=>{
 $("#fRes").addEventListener("submit",e=>{
   e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
   const x=L.find(i=>i.id===f.id);if(!x){toast("Primero programa un lanzamiento.");return}
-  x.estado="hecho";if(x.id==="enlace")x.id=Date.now().toString(36);x.resultado={altura:f.altura,vuelo:f.vuelo,descenso:f.descenso,exito:f.exito==="1",media:f.media};
+  x.estado="hecho";if(x.id==="enlace")x.id=Date.now().toString(36);x.resultado={altura:f.altura,vuelo:f.vuelo,descenso:f.descenso,tapogeo:f.tapogeo,estadoFinal:f.estadoFinal,exito:f.exito==="1",media:f.media};
   save();e.target.reset();render();tick();$("#reg").open=false;toast("Resultado registrado.");
   $("#hechos-sec").scrollIntoView({behavior:"smooth"});
 });
@@ -491,7 +820,20 @@ $("#file").onchange=async e=>{
   try{L=JSON.parse(await e.target.files[0].text());save();render();tick();toast("Datos importados.")}catch(err){toast("Archivo no válido")}
 };
 
+renderCohete();renderEquipo();
 load().then(()=>{aplicarEnlace();render();tick();setInterval(tick,1000)});
+(function(){
+  const links=[...document.querySelectorAll("nav a")],secs=links.map(a=>document.querySelector(a.getAttribute("href")));
+  let raf=0,cur=null;
+  const upd=()=>{
+    raf=0;const y=innerHeight*.35;let act=null;
+    secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<=y)act=i});
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)act=secs.length-1;
+    if(act===cur)return;cur=act;
+    links.forEach((a,i)=>{const on=i===act;a.classList.toggle("on",on);if(on){a.setAttribute("aria-current","true");a.scrollIntoView({block:"nearest",inline:"nearest"})}else a.removeAttribute("aria-current")});
+  };
+  addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});upd();
+})();
 </script>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="mus"><button id="musica" type="button"></button><input id="vol" type="range" min="0" max="100" value="40" aria-label="Volumen"></div>
